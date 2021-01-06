@@ -34,7 +34,7 @@
 	})
 
 	//Hook into Token Attacher
-	Hooks.on("token-attacher.macroAPILoaded", () => {
+	Hooks.once("token-attacher.macroAPILoaded", () => {
 		if(igonreSystem === game.system.id) return;
 
 		if (!game.settings.get(moduleName, "imported") ) {
