@@ -9,7 +9,7 @@
 		"import_packs/test-ta2.json"
 	]
 	//This should be the system in which you created the original compendium, in case you want to distribute that aswell in your module otherwise make it blank
-	const igonreSystem = "dnd5e";
+	const ignoreSystem = "dnd5e";
 	//This should be the first part of your localization stringIds in the localization files in .\languages\ 
 	const moduleLocalizationScope = "TOKENATTACHEREXAMPLECOMPENDIUM";
 
@@ -94,7 +94,7 @@
 	//Hook into Token Attacher
 	Hooks.once("token-attacher.macroAPILoaded", () => {
 		if(!game.user.isGM) return;
-		if(igonreSystem === game.system.id) return;
+		if(ignoreSystem === game.system.id) return;
 
 		if (!game.settings.get(moduleName, "imported") ) {
 			Dialog.confirm({
