@@ -17,6 +17,62 @@
 	//Nothing past this point needs to be changed, in theory at least
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
+
+	const templatePath = `/modules/${moduleName}/templates`;
+
+	class Settings extends FormApplication {
+		static init() {
+		game.settings.registerMenu(moduleName, 'menu', {
+			name: '',
+			label: `${moduleLabel} GM Menu`,
+			type: Settings,
+			restricted: true
+		  });
+		}
+	
+		static get defaultOptions() {
+			return {
+				...super.defaultOptions,
+				template: `${templatePath}/settings.html`,
+				height: "auto",
+				title: `${moduleLabel} GM Menu`,
+				width: 600,
+				classes: ["settings"],
+				tabs: [ 
+					{
+						navSelector: '.tabs',
+						contentSelector: 'form',
+						initial: 'info'
+					} 
+				],
+				submitOnClose: false
+			}
+		}
+	
+	
+		constructor(object = {}, options) {
+			super(object, options);
+		}
+	
+		_getHeaderButtons() {
+			return super._getHeaderButtons();
+		}
+	
+	
+		getData() {
+			return  super.getData();
+		}
+	
+		activateListeners(html) {
+			let force_reimport=html.find(".force-reimport");
+			let force_update=html.find(".force-update");
+
+			force_reimport.click(()=>{forceReimport();});
+			force_update.click(()=>{forceUpdate();});
+		}
+	
+	}
+
 	//Register settings
 	Hooks.on("init", () => {
 		game.settings.register(moduleName, "imported", {
@@ -31,6 +87,8 @@
 			type: String,
 			default: ""
 		});
+		
+		Settings.init();
 	})
 
 	//Hook into Token Attacher
@@ -85,5 +143,17 @@
 			}
 		}
 		return StartImport();
+	}
+
+	async function forceReimport(){
+		await game.settings.set(moduleName, "imported", false);
+		await game.settings.set(moduleName, "module-version", game.modules.get(moduleName).data.version - 1);
+		return ui.notifications.info("Delete old compendiums and refresh the page wtih F5!");
+
+	}
+
+	async function forceUpdate(){
+		await game.settings.set(moduleName, "module-version", game.modules.get(moduleName).data.version - 1);
+		return ui.notifications.info("Refresh the page wtih F5!");		
 	}
 })();
