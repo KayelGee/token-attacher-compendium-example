@@ -13,7 +13,7 @@ When the module version changes it'll ask to import the compendiums again, delet
 
 ## How to use this for your own module
 
-Clone this module.
+Download the latest zip of this module.
 
 Update module.json with everything that is necessary for your module.
 Put your compediums and JSON exports side by side in the packs folder, they have to be named the same expect that ".db" has to be ".json" for the JSON exported compendiums.
