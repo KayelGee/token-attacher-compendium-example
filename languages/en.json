@@ -1,4 +1,6 @@
 {
 	"TOKENATTACHEREXAMPLECOMPENDIUM.ImportCompendiums": "Would you like to import the modules compendiums into your world?",
-	"TOKENATTACHEREXAMPLECOMPENDIUM.UpdateModule": "<p>The module has been updated.</p><p>Would you like to import the modules compendiums into your world?</p><p><i class='fas fa-exclamation-triangle'></i> This will delete the previous compendiums generated from this module!</p>"
+	"TOKENATTACHEREXAMPLECOMPENDIUM.UpdateModule": "<p>The module has been updated.</p><p>Would you like to import the modules compendiums into your world?</p><p><i class='fas fa-exclamation-triangle'></i> This will delete the previous compendiums generated from this module!</p>",
+	"TOKENATTACHEREXAMPLECOMPENDIUM.DeleteOld": "Delete old compendiums and refresh the page wtih F5!",
+	"TOKENATTACHEREXAMPLECOMPENDIUM.Refresh": "Refresh the page wtih F5!"
 }

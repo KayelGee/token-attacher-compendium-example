@@ -1,24 +1,29 @@
+'use strict';
+
 (async () => {
-	//This has to be the name field from your module.json
-	const moduleName = "token-attacher-compendium-example";
-	//This should correlate to the title field from your module.json so the user knows from where the compendium is
-	const moduleLabel = "Compendium Example";
-	//This should contain all your json compendiums
-	const compendiumList =[
-		"import_packs/test-ta.json",
-		"import_packs/test-ta2.json"
-	]
-	//This should be the system in which you created the original compendium, in case you want to distribute that aswell in your module otherwise make it blank
-	const ignoreSystem = "dnd5e";
-	//This should be the first part of your localization stringIds in the localization files in .\languages\ 
-	const moduleLocalizationScope = "TOKENATTACHEREXAMPLECOMPENDIUM";
+	const topLevelUrl = import.meta.url + '/../..';
+	const moduleFetch = await fetch(topLevelUrl+ '/module.json');
+	const moduleJSON = await moduleFetch.json();
 
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	//Nothing past this point needs to be changed, in theory at least
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	const moduleName = moduleJSON.name;
+	const moduleLabel = moduleJSON.title;
+	const compendiumList = moduleJSON.packs.filter(p => {
+		return p.entity === "Actor";
+	});
+	for (let i = 0; i < compendiumList.length; i++) {
+		const compendium = compendiumList[i];
+		let path = compendium.path.split('.');
+		path[path.length-1] = "json";
+		compendium.path = path.join('.');
+	}
+
+	const ignoreSystem = compendiumList[0].system;
 	
+	const langFetch = await fetch(topLevelUrl+ '/languages/en.json');
+	const enJSON = await langFetch.json();
+	const moduleLocalizationScope = Object.keys(enJSON)[0].split('.')[0];
 
-	const templatePath = `/modules/${moduleName}/templates`;
+	const templatePath = `${topLevelUrl}/templates`;
 
 	class Settings extends FormApplication {
 		static init() {
@@ -73,8 +78,12 @@
 	
 	}
 
-	//Register settings
-	Hooks.on("init", () => {
+	//Hook into Token Attacher
+	Hooks.once("token-attacher.macroAPILoaded", () => {
+		if(!game.user.isGM) return;
+		if(ignoreSystem === game.system.id) return;
+
+		//Register settings
 		game.settings.register(moduleName, "imported", {
 			scope: "world",
 			config: false,
@@ -86,15 +95,8 @@
 			config: false,
 			type: String,
 			default: ""
-		});
-		
+		});		
 		Settings.init();
-	})
-
-	//Hook into Token Attacher
-	Hooks.once("token-attacher.macroAPILoaded", () => {
-		if(!game.user.isGM) return;
-		if(ignoreSystem === game.system.id) return;
 
 		if (!game.settings.get(moduleName, "imported") ) {
 			Dialog.confirm({
@@ -117,7 +119,7 @@
 	 */
 	async function StartImport() {
 		for (let i = 0; i < compendiumList.length; i++) {
-			const json = await fetch(`modules/${moduleName}/${compendiumList[i]}`, {
+			const json = await fetch(`${topLevelUrl}${compendiumList[i].path}`, {
                 headers: {'Content-Type': 'application/json'}
               });
 			await tokenAttacher.importFromJSON(await json.text(), {module:moduleName, "module-label":moduleLabel});			
@@ -131,14 +133,15 @@
 	 */
 	async function StartUpdate() {
 		for (let i = 0; i < compendiumList.length; i++) {
-			const json = await fetch(`modules/${moduleName}/${compendiumList[i]}`, {
+			const json = await fetch(`${topLevelUrl}${compendiumList[i].path}`, {
                 headers: {'Content-Type': 'application/json'}
               });
 			const parsed = JSON.parse(await json.text());
 			if(parsed.hasOwnProperty("compendium")){
-				const pack = await game.packs.get(`world.${moduleName}.${parsed.compendium.name}`);
+				const pack = await game.packs.get(`world.` + (`${moduleName}-${parsed.compendium.name}`).slugify({strict: true}));
 				if(pack){
-					await pack.delete();
+					await pack.configure({locked: false});
+					await pack.deleteCompendium();
 				}
 			}
 		}
@@ -148,12 +151,12 @@
 	async function forceReimport(){
 		await game.settings.set(moduleName, "imported", false);
 		await game.settings.set(moduleName, "module-version", game.modules.get(moduleName).data.version - 1);
-		return ui.notifications.info("Delete old compendiums and refresh the page wtih F5!");
+		return ui.notifications.info(game.i18n.localize(`${moduleLocalizationScope}.DeleteOld`),);
 
 	}
 
 	async function forceUpdate(){
 		await game.settings.set(moduleName, "module-version", game.modules.get(moduleName).data.version - 1);
-		return ui.notifications.info("Refresh the page wtih F5!");		
+		return ui.notifications.info(game.i18n.localize(`${moduleLocalizationScope}.Refresh`),);		
 	}
 })();

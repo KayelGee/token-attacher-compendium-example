@@ -1,17 +1,32 @@
 {
 	"name": "token-attacher-compendium-example",
-	"title": "Token Attacher Auto Import JSON Compendium Example",
-	"description": "This Example module has two compendiums in the form of json files exported through Token Attacher.When you open the compendium tab it'll ask to import them into the world independent of the current system.When the module version changes it'll ask to import the compendiums again, deleteing the pervious ones.",
-	"version": "1.0.0",
-	"minimumCoreVersion": "0.7.0",
-	"compatibleCoreVersion": "0.7.9",
+	"title": "TA Auto Import Example",
+	"description": "This Example module has two dnd5e compendiums as regular compendiums and as json files exported through Token Attacher. When you open the world it'll ask to import them into the world if the system differs from the regular compendiums. When the module version changes it'll ask to import the compendiums again, deleteing the pervious ones.",
+	"version": "1.1.0",
+	"minimumCoreVersion": "9",
+	"compatibleCoreVersion": "9",
 	"author": "KayelGee - KayelGee#5241",
-	"scripts": [
+	"esmodules": [
 		"scripts/compendium-import.js"
 	],
 	"styles": [
 	],
-	"packs": [],
+	"packs": [
+    {
+      "name": "test-ta",
+      "label": "Test TA",
+      "path": "/packs/test-ta.db",
+      "entity": "Actor",
+      "system": "dnd5e"
+    },
+    {
+      "name": "test-ta2",
+      "label": "Test TA2",
+      "path": "/packs/test-ta2.db",
+      "entity": "Actor",
+      "system": "dnd5e"
+    }
+		],
 	"languages": [
 		{
 			"lang": "en",
@@ -27,6 +42,6 @@
 	"socket": false,
 	"url": "https://github.com/KayelGee/token-attacher-compendium-example",
   "manifest": "https://raw.githubusercontent.com/KayelGee/token-attacher-compendium-example/master/module.json",
-  "download": "https://github.com/KayelGee/token-attacher-compendium-example/releases/download/v1.0.0/v1.0.0.zip",
-  "readme": "https://github.com/KayelGee/token-attacher-compendium-example/blob/v1.0.0/README.md"
+  "download": "https://github.com/KayelGee/token-attacher-compendium-example/releases/download/v1.1.0/v1.1.0.zip",
+  "readme": "https://github.com/KayelGee/token-attacher-compendium-example/blob/v1.1.0/README.md"
 }
