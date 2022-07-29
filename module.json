@@ -2,7 +2,7 @@
 	"name": "token-attacher-compendium-example",
 	"title": "TA Auto Import Example",
 	"description": "This Example module has two dnd5e compendiums as regular compendiums and as json files exported through Token Attacher. When you open the world it'll ask to import them into the world if the system differs from the regular compendiums. When the module version changes it'll ask to import the compendiums again, deleteing the pervious ones.",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"minimumCoreVersion": "9",
 	"compatibleCoreVersion": "9",
 	"author": "KayelGee - KayelGee#5241",

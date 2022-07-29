@@ -23,7 +23,7 @@
 	const enJSON = await langFetch.json();
 	const moduleLocalizationScope = Object.keys(enJSON)[0].split('.')[0];
 
-	const templatePath = `${topLevelUrl}/templates`;
+	const templatePath = (new URL(`${topLevelUrl}/templates`)).pathname;
 
 	class Settings extends FormApplication {
 		static init() {
