@@ -105,7 +105,7 @@
 				yes: () => StartImport()
 			});
 		}
-		else if(game.settings.get(moduleName, "module-version") !== game.modules.get(moduleName).data.version){
+		else if(game.settings.get(moduleName, "module-version") !== game.modules.get(moduleName).version){
 			Dialog.confirm({
 				title: moduleLabel + " Updater",
 				content: game.i18n.localize(`${moduleLocalizationScope}.UpdateModule`),
@@ -125,7 +125,7 @@
 			await tokenAttacher.importFromJSON(await json.text(), {module:moduleName, "module-label":moduleLabel});			
 		}
 		await game.settings.set(moduleName, "imported", true);
-		return game.settings.set(moduleName, "module-version", game.modules.get(moduleName).data.version);
+		return game.settings.set(moduleName, "module-version", game.modules.get(moduleName).version);
 	}
 
 	/**
@@ -150,13 +150,13 @@
 
 	async function forceReimport(){
 		await game.settings.set(moduleName, "imported", false);
-		await game.settings.set(moduleName, "module-version", game.modules.get(moduleName).data.version - 1);
+		await game.settings.set(moduleName, "module-version", game.modules.get(moduleName).version - 1);
 		return ui.notifications.info(game.i18n.localize(`${moduleLocalizationScope}.DeleteOld`),);
 
 	}
 
 	async function forceUpdate(){
-		await game.settings.set(moduleName, "module-version", game.modules.get(moduleName).data.version - 1);
+		await game.settings.set(moduleName, "module-version", game.modules.get(moduleName).version - 1);
 		return ui.notifications.info(game.i18n.localize(`${moduleLocalizationScope}.Refresh`),);		
 	}
 })();
