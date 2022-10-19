@@ -3,7 +3,7 @@
 ![GitHub Releases](https://img.shields.io/github/downloads/KayelGee/token-attacher-compendium-example/latest/total?style=for-the-badge) 
 ![GitHub All Releases](https://img.shields.io/github/downloads/KayelGee/token-attacher-compendium-example/total?style=for-the-badge&label=Downloads+total)  
 
-**[Compatibility]**: *FoundryVTT* 0.9.0+  
+**[Compatibility]**: *FoundryVTT* v10+  
 **[Systems]**: *any*  
 **[Languages]**: *English*  
 

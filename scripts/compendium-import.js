@@ -5,7 +5,7 @@
 	const moduleFetch = await fetch(topLevelUrl+ '/module.json');
 	const moduleJSON = await moduleFetch.json();
 
-	const moduleName = moduleJSON.name;
+	const moduleName = moduleJSON.name ?? moduleJSON.id;
 	const moduleLabel = moduleJSON.title;
 	const compendiumList = moduleJSON.packs.filter(p => {
 		return p.entity === "Actor";
