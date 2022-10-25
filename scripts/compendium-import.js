@@ -8,7 +8,7 @@
 	const moduleName = moduleJSON.name ?? moduleJSON.id;
 	const moduleLabel = moduleJSON.title;
 	const compendiumList = moduleJSON.packs.filter(p => {
-		return p.entity === "Actor";
+		return (p.entity ?? p.type) === "Actor";
 	});
 	for (let i = 0; i < compendiumList.length; i++) {
 		const compendium = compendiumList[i];
