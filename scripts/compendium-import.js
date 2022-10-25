@@ -1,7 +1,7 @@
 'use strict';
 
 (async () => {
-	const topLevelUrl = import.meta.url + '/../..';
+	const topLevelUrl = new URL(import.meta.url + '/../..');
 	const moduleFetch = await fetch(topLevelUrl+ '/module.json');
 	const moduleJSON = await moduleFetch.json();
 
