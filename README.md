@@ -29,6 +29,11 @@ To do so:
 - Move the `.json` files you previously had inside the new folder named as the `name` property of your compendium.
 - Make sure the name of your `.json` file matches the name of the folder your are moving the file to. If your `path` property had a different name from the `name` you'll need to rename the `.json` accordingly.
 
+Example:
+If your `name` is `my-actor-pack`, your `path` is `packs/my-actor-pack` then you need a `packs/my-actor-pack/my-actor-pack.json` file.
+
+If your `name` is `my-actor-pack`, your `path` is `packs/this-is-a-different-name` then you need a `packs/this-is-a-different-name/my-actor-pack.json` file.
+
 ## Contact
 
 If you wish to contact me for any reason, reach me out on Discord using my tag: `KayelGee#5241`
