@@ -20,6 +20,15 @@ Put your compediums and JSON exports side by side in the packs folder, they have
 
 You can change the texts by editing "languages/en.json". When you do that you have to replace "TOKENATTACHEREXAMPLECOMPENDIUM" with some string that identifies your module for all texts.
 
+## V11 Migration
+
+V11 Brings a new database format, so you will need to update the System Agnostic compendium importing.
+To do so:
+
+- Replace the contents of your `compendium-import.js` with the [one from this repository](https://github.com/KayelGee/token-attacher-compendium-example/blob/master/scripts/compendium-import.js)
+- Move the `.json` files you previously had inside the new folder named as the `name` property of your compendium.
+- Make sure the name of your `.json` file matches the name of the folder your are moving the file to. If your `path` property had a different name from the `name` you'll need to rename the `.json` accordingly.
+
 ## Contact
 
 If you wish to contact me for any reason, reach me out on Discord using my tag: `KayelGee#5241`

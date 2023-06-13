@@ -12,6 +12,7 @@
 	});
 	for (let i = 0; i < compendiumList.length; i++) {
 		const compendium = compendiumList[i];
+		if(!compendium.path.includes('.')) continue;
 		let path = compendium.path.split('.');
 		path[path.length-1] = "json";
 		compendium.path = path.join('.');
@@ -114,12 +115,22 @@
 		}
 	});
 
+	function getJSONPath(pack) {
+		const name = pack.name;
+		let path = pack.path;
+		//remove the last part of the path if it ends with a file
+		if(path.split('/').pop().includes('.')){
+			path = path.split('/').slice(0,-1).join('/');
+		}
+		return `${topLevelUrl}${path}/${name}.json`;
+	}
+
 	/**
 	 * Import all compendiums
 	 */
 	async function StartImport() {
 		for (let i = 0; i < compendiumList.length; i++) {
-			const json = await fetch(`${topLevelUrl}${compendiumList[i].path}`, {
+			const json = await fetch(getJSONPath(compendiumList[i]), {
                 headers: {'Content-Type': 'application/json'}
               });
 			await tokenAttacher.importFromJSON(await json.text(), {module:moduleName, "module-label":moduleLabel});			
@@ -133,7 +144,7 @@
 	 */
 	async function StartUpdate() {
 		for (let i = 0; i < compendiumList.length; i++) {
-			const json = await fetch(`${topLevelUrl}${compendiumList[i].path}`, {
+			const json = await fetch(getJSONPath(compendiumList[i]), {
                 headers: {'Content-Type': 'application/json'}
               });
 			const parsed = JSON.parse(await json.text());
