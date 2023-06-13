@@ -34,6 +34,8 @@ If your `name` is `my-actor-pack`, your `path` is `packs/my-actor-pack` then you
 
 If your `name` is `my-actor-pack`, your `path` is `packs/this-is-a-different-name` then you need a `packs/this-is-a-different-name/my-actor-pack.json` file.
 
+If your `name` is `my-actor-pack`, and you omit the `path` then you need a `packs/my-actor-pack/my-actor-pack.json` file.
+
 ## Contact
 
 If you wish to contact me for any reason, reach me out on Discord using my tag: `KayelGee#5241`
