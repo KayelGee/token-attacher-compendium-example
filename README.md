@@ -3,7 +3,7 @@
 ![GitHub Releases](https://img.shields.io/github/downloads/KayelGee/token-attacher-compendium-example/latest/total?style=for-the-badge) 
 ![GitHub All Releases](https://img.shields.io/github/downloads/KayelGee/token-attacher-compendium-example/total?style=for-the-badge&label=Downloads+total)  
 
-**[Compatibility]**: *FoundryVTT* v10+  
+**[Compatibility]**: *FoundryVTT* v11+  
 **[Systems]**: *any*  
 **[Languages]**: *English*  
 
@@ -19,6 +19,22 @@ Update module.json with everything that is necessary for your module.
 Put your compediums and JSON exports side by side in the packs folder, they have to be named the same expect that ".db" has to be ".json" for the JSON exported compendiums.
 
 You can change the texts by editing "languages/en.json". When you do that you have to replace "TOKENATTACHEREXAMPLECOMPENDIUM" with some string that identifies your module for all texts.
+
+## V11 Migration
+
+V11 Brings a new database format, so you will need to update the System Agnostic compendium importing.
+To do so:
+
+- Replace the contents of your `compendium-import.js` with the [one from this repository](https://github.com/KayelGee/token-attacher-compendium-example/blob/master/scripts/compendium-import.js)
+- Move the `.json` files you previously had inside the new folder named as the `name` property of your compendium.
+- Make sure the name of your `.json` file matches the name of the folder your are moving the file to. If your `path` property had a different name from the `name` you'll need to rename the `.json` accordingly.
+
+Example:
+If your `name` is `my-actor-pack`, your `path` is `packs/my-actor-pack` then you need a `packs/my-actor-pack/my-actor-pack.json` file.
+
+If your `name` is `my-actor-pack`, your `path` is `packs/this-is-a-different-name` then you need a `packs/this-is-a-different-name/my-actor-pack.json` file.
+
+If your `name` is `my-actor-pack`, and you omit the `path` then you need a `packs/my-actor-pack/my-actor-pack.json` file.
 
 ## Contact
 
